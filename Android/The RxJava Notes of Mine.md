@@ -1,23 +1,11 @@
-# The RxJava Notes of Mine
-
-
-## Observable and Observer
-
-### Cold! and Hot!
-
-## Subscription and Subcriber 
-
-## Error Handling
+# The RxJava Notes of Mine(RxJava 1)
 
 ## Closures
 
-Actions , Subcribers,Producer
-
-
 ``Function``
- ------> ``Action``
- ------> ``Action1``
-        ----->``Observable.onSubscribe<T>``
+ <br>------> ``Action``
+<br>------> ``Action1``
+     <br>   ----->``Observable.onSubscribe<T>``
 
 ### Action and Function Family:
 ``ActionX``: x indicates the number of params 
@@ -40,6 +28,40 @@ Observable.create(Observale.OnSubscribe->{
 
 })
 ````
+
+This method is considered unsafe and deprecated after the version 1.2.7
+
+## Subscription and Subcriber and Observer
+
+Subsriber implements the Observer and Subscription both
+
+``public abstract class Subscriber<T> implements Observer<T>, Subscription``
+
+
+
+``subcribe()`` observable.subcribe(subcriber)
+``subcription`` Subscription subscription = Observable.subscribe(subscriber);
+                subscription.unsubscribe();
+ 
+> when the same Observable is subcribded many times, the code inside onSubsribed() will perform many times.
+
+use can avoid the  senerio using cached() operator.
+
+
+## Observable
+
+### Cold! and Hot!
+
+cold observables
+
+> The logic inside the cold Observable will remain uninvoked only when someone subscribes to it.
+
+hot observables
+> The hot observables push events downstream even if no one listens to them.
+
+
+The hot observables are  just like radio station, all the subscribers will hear the same song at the moment, the songs will be playing even though the subscribers unsubscribe.
+
 
 ## onError() onComplete() onNext()
 
@@ -100,7 +122,7 @@ the buffer operator takes the upstream event into a list, when size of the list 
 - subcribers propagate their demand and request to the observables 
 
 
-##　Talk about backPressure
+## Talk about backPressure
 This is the senerio: in a restaurant, dished being washed faster than waiter can handle. A Dish class was created to describe the situation.
 
 Think about the following code:
@@ -130,3 +152,5 @@ Observable observable=Observable.range(1,100000); class MySubscriber extends Sub
 }
 
 ````
+
+## Error Handing & Memory Leaks Hanndling
