@@ -1,9 +1,11 @@
 ###  defer()    :
 [Value deferring](http://blog.danlew.net/2015/07/23/deferring-observable-code-until-subscription-in-rxjava/)
+
 ````
 just() from() and other Observable creation tools stores the value of data when created not when subscribed.
 ````
-some Solutions:
+
+from the blog above we got some Solutions:
 
 - using create(): 
 - using defer() and fromCallable() : defer can delay (especially the intialization) whatever in the lambda expression util someone subscribe to it.
@@ -47,13 +49,64 @@ Observable
     //third arg: upStream completes normally
     .flatmap(Observable::just,th->Observable::empty,Observable::empty)
     //the real observable of events when error occurs
-    .concatWith(something ...)
+.concatWith(something ...)
     //the first() will filter "empty" events
     .first();
 ````
 
+When I apply this approach into my code, I found that only when  the source events and events in concatWith() are from the same type, the approach actually works well:
+
+````
+SomeType{
+    int errorEvents();
+
+    int wellEvents();
+}
+````  
+
+
+By doing so, using the same subscribe(), the downStream can process the different event streams with the same logic.
+
+
+
 # debounce() 
+
 filter when Observable emits events too fast
+
 
 # first()
 like take(1) but will filter "empty" events
+
+# retry() Family
+````
+ Observable.create(subscriber -> {
+            throw new RuntimeException();
+        })
+                .retry(1000000000)
+                .doOnError(throwable -> System.out.print("fuck\n"))
+                .subscribe(new Subscriber<Object>() {
+                    @Override
+                    public void onCompleted() {
+
+                    }
+
+                    @Override
+                    public void onError(Throwable throwable) {
+                        throwable.printStackTrace();
+                        System.out.print(count-- + " ");
+                    }
+
+                    @Override
+                    public void onNext(Object o) {
+
+                    }
+                });
+````
+plain ``retry()`` without parameters with resubscribe to the event and push it downstream without sending notification to onError(), until the last exception is caught in the stream.
+
+in this dramatic code snippet, I let RxJava retry for many times, the code did response after  a quite a long time.
+
+``retryWhen()`` behaves differently as it sounds, it should be named when retry. This operator takes a Func as a parameter.
+````
+retryWhen(x->x.delay(10 sec))
+````

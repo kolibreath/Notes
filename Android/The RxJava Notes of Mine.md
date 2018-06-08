@@ -245,8 +245,46 @@ Observable observable=Observable.range(1,100000); class MySubscriber extends Sub
 
 ````
 
-## Error Handing & Memory Leaks Hanndling
+## Error Handling
 
+### Checked Exception & Unchecked Exception
+
+ In most of the time, errors come from somewhere the pipeline, in one of your lambda expressions in operators, etc. 
+
+Users can actively use ``Observable.onError()`` to generate an error notification which will be handled in ``subscribe()``.
+
+To handle error notification, the easiest way is to implement the ``onError()`` in ``subscribe()``.
+
+There are more elegant way to do so:
+
+- using ``observable.onErrorResume()`` ``observable.onErrorReturn()``
+
+- using ``doOnError()``
+
+- using ``retry()``
+
+## First Approach
+````
+ CampusFactory
+                .getRetrofitService()
+                .getScores(year, termTemp)
+                .subscribeOn(Schedulers.io())
+                .onErrorResumeNext(throwable -> {
+                    CcnuCrawler2.clearCookieStore();
+                    return new LoginPresenter().login(UserAccountManager.getInstance().getInfoUser())
+                            .flatMap(aBoolean -> CampusFactory.getRetrofitService()
+                                    .getScores(year, finalTermTemp));
+                })
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(this::renderScoreList,
+                        throwable -> {
+                            throwable.printStackTrace();
+                            mMultiStatusView.showNetError();
+                            hideLoading();
+                        }, this::hideLoading);
+````
+
+When the token is out of date, ``getScore()`` will pop out a 401 error, but before the error is propagated to ``onError()``, ``onErrorResumeNext()`` will create another stream which login in to the System and fresh the token.
 
 
 ````
