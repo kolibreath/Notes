@@ -247,23 +247,7 @@ Observable observable=Observable.range(1,100000); class MySubscriber extends Sub
 
 ## Error Handing & Memory Leaks Hanndling
 
-### value deferring:
-[Value deferring](http://blog.danlew.net/2015/07/23/deferring-observable-code-until-subscription-in-rxjava/)
-````
-just() from() and other Observable creation tools stores the value of data when created not when subscribed.
-````
-some Solutions:
 
-- using create(): 
-- using defer() and fromCallable() : defer can delay (especially the intialization) whatever in the lambda expression util someone subscribe to it.
-
-I also found this expression [here](https://caster.io/lessons/fromcallable-converting-slow-methods-into-an-observable)
-
-````
-String value = Database.readValue();
-Observable.just(value);
-````
-Though just() returns cold observable, the just() and from() method will not keep waiting for the subscribe() calling, the just() operator saves whatever currently. The data can be out of date.
 
 ````
 Observable.doOnError()
