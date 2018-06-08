@@ -1,3 +1,4 @@
+The observer may change the state of the object
 # The RxJava Notes of Mine(RxJava 1)
 
 ## Closures
@@ -63,9 +64,83 @@ hot observables
 The hot observables are  just like radio station, all the subscribers will hear the same song at the moment, the songs will be playing even though the subscribers unsubscribe.
 
 
+
 ## onError() onComplete() onNext()
 
 ## Scheduler
+
+````
+abstract class Scheduler{
+    abstract Worker createWorker;
+
+    long now();
+
+    abstract static class Worker implements Subscription{
+        abstract Subscription schedule(Action0 action0);
+
+        abstract Subscription schedule(Action0 action0,long delayTime ,TimeUnit unit);
+
+        long now();
+    }
+}
+````
+
+
+### Scheduler and Worker
+````
+
+private CompositeSubscription compsub = new CompositeSubscription();
+
+public final class SimplifiedHandlerScheduler extends Scheduler{
+
+    @override
+    public Worker createWorker();
+
+    static class HandlerWorker extends Worker{
+
+        private final Handler handler = new Handler(Looper.getMainLooper());
+
+        @override
+        public void unsubsribe(){
+            compsub.unsubcribe();
+        }
+
+        @override
+        public boolean isUnsubscribed(){
+           return compsub.isUnsubscribed();
+        }
+
+        @override
+        public Subscription schedule(final Action0 Action0){
+            return schedule(Action0,0,TimeUnit.MILLISECONDS);
+        }
+
+        @override
+        public Subscription schedule(Action0 Action0, long delayTime, TimeUnit TimeUnit){
+
+            if(compsub.isUnsubscribed()){
+                return Subscription.unsubcribe();
+            }
+
+            scheduledAction scheduledAction = new scheduledAction(Action0);
+
+            handler.postDelayed(scheduledAction,TimeUnit.toMillis(delayTime));
+            
+            ///...
+        }
+    }
+}
+````
+
+
+The SimplifiedHandlerScheduler shows the following facts that : 
+
+- if the Scheduler wants to schedule for something , the Scheduler must ask for a Worker instance first
+
+- the postDelayed() method itself runs on the Android main thread. There is just one such thread, so events are serilized not onlyt within, but across Workers.
+
+- the schedule() method returns Subscription, the task can be called off using unsubscribe() method from Subscription
+
 
 ### subcribeOn() and observeOn()
 
@@ -74,9 +149,24 @@ The hot observables are  just like radio station, all the subscribers will hear 
 > It's recommened that the subcribeOn() should be placed close to the Producer.
 
 
-subscribeOn(): The onSubcribed() of Observable is invoked by subscribe(), only when subcribed, the code in the create() method will be performed. 
+subscribeOn(): The onSubcribed() in Observable is invoked by subscribe(), only when subcribed, the code in the create() method will be performed, and this method will choose a thread where the create() will be running on. ``the subscribeOn() should be placed anywhere between the Observable and subscribe()``
 
 observeOn(): the code below that uses the thread(Schedulers ) supplied in the observeOn().
+
+
+````
+Observable
+    .create(something ->{
+
+})
+    .subscribeOn(SchedulerA)
+    .subscribe()
+````
+
+The create() will be invoked when a new Subscriber is executed, by default, the transformation in create() runs in client thread.
+
+What happens in create() will not block the things going on in subscribe(), and the two thread are running concurrently.
+
 
 
 ````
@@ -88,6 +178,8 @@ Observable
     .subscribe();
 ````
 coding like this will use the thread pool in a more effective way.
+
+>> Subscriber
 
 
 
@@ -154,3 +246,25 @@ Observable observable=Observable.range(1,100000); class MySubscriber extends Sub
 ````
 
 ## Error Handing & Memory Leaks Hanndling
+
+### value deferring:
+[Value deferring](http://blog.danlew.net/2015/07/23/deferring-observable-code-until-subscription-in-rxjava/)
+````
+just() from() and other Observable creation tools stores the value of data when created not when subscribed.
+````
+some Solutions:
+
+- using create(): 
+- using defer() and fromCallable() : defer can delay (especially the intialization) whatever in the lambda expression util someone subscribe to it.
+
+I also found this expression [here](https://caster.io/lessons/fromcallable-converting-slow-methods-into-an-observable)
+
+````
+String value = Database.readValue();
+Observable.just(value);
+````
+Though just() returns cold observable, the just() and from() method will not keep waiting for the subscribe() calling, the just() operator saves whatever currently. The data can be out of date.
+
+````
+Observable.doOnError()
+````

@@ -1,5 +1,8 @@
 # Playback
-the implemetion of Playback, LocalPlayback, is able to get playback state such as IDLE BUFFERING PAUSED and NONE the states which are retrieved from the exoplayer in LocalPlayback
+the implemetion of Playback, LocalPlayback, is able to get playback state such as IDLE BUFFERING PAUSED and NONE the states which are retrieved from the exoplayer in LocalPlayback.
+
+## updatePlaybackState(String error);
+
 
 # PlaybackStateCompat
 
@@ -41,3 +44,19 @@ pause()...
 PlaybackManager implements -> Playback.Callback
 
 MusicPlayback implements - > Playback using Exoplayer and control the playbackState.
+
+
+# MediaSession
+
+the MediaSession controls :`` PlaybackState``, the PlaybackState will be built up in teh playbackManager using the updastePlaybackState(String error) method whill is invoked in MusicService, the callback of QueueManager 
+````
+   @Override
+                    public void onMetadataRetrieveError() {
+                        mPlaybackManager.updatePlaybackState(
+                                getString(R.string.error_no_metadata));
+                    }
+````
+
+and oncreate() as for initializing the PlaybackState, which is STATE_PLAYING `cause the LocalPlayback is already running.
+
+
