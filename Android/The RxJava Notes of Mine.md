@@ -249,6 +249,73 @@ Observable observable=Observable.range(1,100000); class MySubscriber extends Sub
 
 ### Checked Exception & Unchecked Exception
 
+The checked Exception force the user to wrap the exception in a try-catch block, while the unchecked Exception may happen unexpectedly like NullPointerException , etc.
+
+````
+       +-----------+
+		   | Throwable |
+                   +-----------+
+                    /         \
+		   /           \
+          +-------+          +-----------+
+          | Error |          | Exception |
+          +-------+          +-----------+
+	   /  |  \           / |        \
+         \________/	  \______/    	 \
+			                +------------------+
+	unchecked	 checked	| RuntimeException |
+					+------------------+
+					  /   |    |      \
+					 \_________________/
+					   
+					   unchecked
+````
+
+`` void request() throws IOException()``
+
+````
+Observable.create(subscriber - >{
+    try{
+        request();
+    }catch(Exception e){
+        e.printStacktrace();
+    }
+}.subscribe(o->{},e->{
+    //will not be invoked!
+},()->{
+
+});
+````
+
+````
+Observable.create(subscriber - >{
+    throw new RuntimeException();
+}.subscribe(o->{},e->{
+    //will be invoked!
+},()->{
+
+});
+````
+
+In the first code snippt, the error can not be push downstream, which may cause some trouble. We can wrap it use just()
+
+````
+Observable.create(subscriber - >{
+    try{
+        Observable.just(request())
+    }catch(Exception e){
+      Observable.error(t..);
+    }
+}.subscribe(o->{},e->{
+    //will not be invoked!
+},()->{
+
+});
+````
+
+
+[here](https://blog.csdn.net/qq_14982047/article/details/50989761)
+
  In most of the time, errors come from somewhere the pipeline, in one of your lambda expressions in operators, etc. 
 
 Users can actively use ``Observable.onError()`` to generate an error notification which will be handled in ``subscribe()``.
@@ -287,6 +354,12 @@ There are more elegant way to do so:
 When the token is out of date, ``getScore()`` will pop out a 401 error, but before the error is propagated to ``onError()``, ``onErrorResumeNext()`` will create another stream which login in to the System and fresh the token.
 
 
+## Second Approach
 ````
 Observable.doOnError()
 ````
+this is a very simple way when user of RxJava senses there is a potential error and tries to handle it.
+
+## Third Approach
+
+

@@ -106,7 +106,7 @@ plain ``retry()`` without parameters with resubscribe to the event and push it d
 
 in this dramatic code snippet, I let RxJava retry for many times, the code did response after  a quite a long time.
 
-``retryWhen()`` behaves differently as it sounds, it should be named when retry. This operator takes a Func as a parameter.
+``retryWhen()`` behaves differently as it sounds, it should be named ``when retry...``, which means this operator defines what to do when retry, . This operator takes a Func as a parameter.
 ````
 retryWhen(x->x.delay(10 sec))
 ````
