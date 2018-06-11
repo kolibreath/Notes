@@ -252,7 +252,7 @@ Observable observable=Observable.range(1,100000); class MySubscriber extends Sub
 The checked Exception force the user to wrap the exception in a try-catch block, while the unchecked Exception may happen unexpectedly like NullPointerException , etc.
 
 ````
-       +-----------+
+                   +-----------+
 		   | Throwable |
                    +-----------+
                     /         \
