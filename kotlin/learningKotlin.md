@@ -39,4 +39,23 @@ var rocks : Int = null //cannot be null
 var lotsOfFish :List<String?> = listOf(null,null) //the elements in the list can be null 
 var everMoreFish:List<String>? = null //the list itself can be null
 ````
+## Bang
+````
+var goldFish : Int?  = null
+goldFish!!.times(10)
+````
 
+but this will still throws an KotlinNullPointerException
+
+
+````
+var fishFoodTreats :Int? = null 
+fun check():Int {
+    return fishFoodTreats?.dec() ?: 0
+}
+
+println(check())
+````
+the ? operator will first check whether the value of the fishFoodTreats is null, if it's null, it will return the value after ?: operator which is zero
+
+?: is Elvis operator and A?:B is the equivalent of the value of A? A:B
