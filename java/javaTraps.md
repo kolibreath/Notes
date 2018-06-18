@@ -104,7 +104,39 @@ o1.compareTo(o2) ==0 means o1 == o2
 while the o1.compareTo(o2) == 0 and the result should be the same with the result of o1.equals(o2), cause some containers like Set will reject the objects from inserting while the returned value of compareTo() is the same but the returned value of isEqual() is different.
 
 
-# try-catch
-````
+# try-catch-finally
+whatever in the finally block will be executed unless System.exit(0)
+
+# String family
+StringBuffer -- the mutable String 
+
+StringBuffer does not implements equals()
 
 ````
+StringBuffer stringBuffer  = new StringBuffer("fuck");
+        StringBuffer stringBuffer1 = new StringBuffer("fuck");
+
+        if(stringBuffer==stringBuffer1)
+            System.out.print(true);
+        if(stringBuffer.equals(stringBuffer1))
+            System.out.print(true);
+````
+
+this code snippet gives a false impression that the later true will be printed, but however it's wrong.
+
+the only way to make the later true to be printed is to added following code:
+
+````
+  if(stringBuffer.toString().equals(stringBuffer1.toString()))
+````
+
+# Containers
+Comparable
+````
+public int compareTo(Object b){
+	Student s = (Student)b;
+	return this.property - s.property;
+}
+````
+
+the above code can sort the list in  ascending order.
