@@ -17,6 +17,8 @@ Float a = 12f;
 ````
 # access Modifiers
 
+[Java accessible modifiers](https://img-blog.csdn.net/20170217212148665?watermark/2/text/aHR0cDovL2Jsb2cuY3Nkbi5uZXQvd3hneGdw/font/5a6L5L2T/fontsize/400/fill/I0JBQkFCMA==/dissolve/70/gravity/SouthEast)
+
 ## default 
 
 - for class : If the class has the default modifier, the class is only seen from the other classes in the same package.
@@ -29,16 +31,21 @@ Float a = 12f;
 - for class and for variables : both are accessiable from the whole project, the whole world.
 
 ## protected
+
 the protected and private modifiers cannot be applied to class.
 - using the protected modifier, the classes inherit the it will can acess to the protected variables and methods.
 - the protected member of class A which is inherited by class B, inside B.java file, the member of A can be accessible. If in another file C, an instance of B, b is created, as long as the C.java and A.java is in the same package, whatever inside B can be accessiable.
 
 as for the protected members inside B.java, the members can be accessible as long as B.java and C.java in the same package.
+
 ## private 
+
 - for the class it only
 - encapsulating
- 
+
 # import keyword
+import other classes(.java) files from another package.
+The class must be public class only
 
 # package
 the name of the package is corresponding with the name of file directory
