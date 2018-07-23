@@ -10,3 +10,11 @@
 
 大概配置好了之后就是这个样子：
 [配置结果](http://ogbvujd8z.bkt.clouddn.com/2018.png)
+
+[终端翻墙配置](https://blog.csdn.net/u010658816/article/details/79344970)
+ 
+在终端配置翻墙之后git 可能会出现问题 可以通过设置 git config 解决：
+````
+git config --global http.https://github.com.proxy socks5://127.0.0.1:1080
+````
+参考[这个issue](https://gist.github.com/laispace/666dd7b27e9116faece6)
