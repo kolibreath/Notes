@@ -9,11 +9,12 @@
 
 如果是在Windows上使用虚拟机安装的也行，教程如此：
 
-> 我是不会告诉你这篇文章的后面还有一个*翻*墙*的教程的
+> 我是不会告诉你这篇文章的后面还有一个*翻*墙*的梯子的
 
 [Windows虚拟机安装Ubuntu](https://darren2017.github.io/2018/07/19/%E6%9C%A8%E7%8A%80%E6%98%9F%E8%AE%A1%E5%88%92-Linux%E8%99%9A%E6%8B%9F%E6%9C%BA%E5%AE%89%E8%A3%85/)
 
 - Ubuntu 安装jdk
+
 
 [JDK下载网址](http://www.oracle.com/technetwork/java/javase/downloads/jdk8-downloads-2133151.html)
 需要同意(Accept Licence Agreenment)之后才可以下载,使用浏览器下载的默认路径会下载到``下载``目录下可以使用文件浏览器查看，或者是Download目录（英文安装，其他语言安装不知道）
