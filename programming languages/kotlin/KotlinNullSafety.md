@@ -9,3 +9,17 @@ Java中的String 有两数值 一种是null 一种是String的实例
 
       @NotNull
 java  String    = Kotlin 中String
+
+- ?.
+Safe call operator 只有在调用方不为空的时候调用很方便
+
+- ？:
+
+````
+val result = value?.fuck() ?: throwIllegalArgumentException()
+````
+
+只有当左边为空的时候才会调用右边的数值
+
+- !!
+显示的告诉编译器如果调用方是空的抛出异常
