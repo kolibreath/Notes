@@ -4,6 +4,7 @@ Kotlin-android-extension 直接使用id操作会不会有坑！
 
 - Android Studio 配置： error runnig app, please select Android SDK 需要在settting 中重新edit 一下SDK的路径 是由于AS异常关闭导致。 需要下载的就下载把...
 但是我反复尝试了之后发现各种方法都不行 以后再也不在终端里面异常关闭了
+这个是AS的一个bug： 解决方法看[SOF](https://stackoverflow.com/questions/34353220/android-studio-please-select-android-sdk#50000408)
 
 - 高德
 - 定位sdk 和 地图 sdk 是两个模块...定位sdk 需要运行时permission debug版本的运行时权限真的是失了智i
