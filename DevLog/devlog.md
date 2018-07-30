@@ -1,6 +1,14 @@
 # 7.30
 Kotlin-android-extension 直接使用id操作会不会有坑！
 - Android Studio Kotlin Extension 异常 按照网上说的方法添加kotlin-android-extension 之后会出现找不到R文件的错误 只能在app module中删除kotlin依赖重新配置
+
+- Android Studio 配置： error runnig app, please select Android SDK 需要在settting 中重新edit 一下SDK的路径 是由于AS异常关闭导致。 需要下载的就下载把...
+但是我反复尝试了之后发现各种方法都不行 以后再也不在终端里面异常关闭了
+
+- 高德
+- 定位sdk 和 地图 sdk 是两个模块...定位sdk 需要运行时permission debug版本的运行时权限真的是失了智i
+- 除了官网提供的几个版本之外3dmap location 等 的依赖下载不下来 只能手动导入jar包.....真的是..
+- 然后手动导入jar包也会出现问题 ...是IDE的bug
 # 7.29
 Kotlin 协程自带了很多异步处理的操作，RxJava 怎么搞？
 Anko Layout 库 语法糖太多了 不想用....

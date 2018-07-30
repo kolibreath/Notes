@@ -1,0 +1,4 @@
+- git init
+- git add 
+- git commit 
+- git remote add origin https/ssh 都可以
