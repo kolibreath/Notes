@@ -1,3 +1,8 @@
+# 8.6
+- 发现一个很有趣的地方 点击checkbox 是先变成选中状态再去执行onclick逻辑还是正好相反？
+哈哈 答案是 先会变成选中状态    
+https://ccnubox.muxixyz.com/api/grade/?xnm=2016&xqm=0 
+
 
 # 8.4
 
@@ -16,7 +21,7 @@ listOf(yearParam,termParam)
 然后遍历这个list 形成一个List<Observable<List<Scores>>> 这样的一个非常复杂的数据结构，之后在遍历这个list，这样的话，异步线程没有办法确定全部完成的时候加载整个listview，可以使用flatMapIterable操作符
 
 - 之前写的请求重试还是不够优雅
-之前使用的是onErrorResumexxxx 就是在出现问题的时候会使用定义在闭包的observale替换当前的observable重新发情求
+之前使用的是onErrorResumexxxx 就是在出现问题的时候会使用定义在闭包的observale替换当前的observable重新发情求 
 # 8.2
 - Android Stuido配置 这次发现不能打包 并且有
 ````
