@@ -1,3 +1,12 @@
+
+# 8.6
+-  Backpressure trigger, skipping transaction & refresh!
+第一次遇到backPressure 相关的异常 哈哈
+- onErrorNext只要发现有一个错误就会重试，容错能力不高
+- creditFragment增加一个缓存
+- 在没有设置查询参数的时候 给默认参数并且给出提示
+- 需要查询完成绩之后的弹出动画 ！
+- 对选择的课程进行过滤
 # 8.6
 - 发现一个很有趣的地方 点击checkbox 是先变成选中状态再去执行onclick逻辑还是正好相反？
 哈哈 答案是 先会变成选中状态    
