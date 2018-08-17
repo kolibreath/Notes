@@ -1,4 +1,40 @@
 
+# 8.18
+- 想将loadingDialog的输出作为一个Observable包装以下，然后可以在UI线程很容易的调用
+## 及一个笔记
+关于这行代码：
+````
+if(id == R.id.cb_first_term)
+            terms[0] = cbFirstTerm.isChecked();
+````
+这个是一个复选框 点击之后是先变化ui 还是先处理这个点击的逻辑？
+如果原来是选中状态，点击之后马上变成为选中状态，然后给term[0]赋值false，所以是先变化ui，再处理逻辑
+
+- 不健壮 如果学年没有开始也会计算这样就有问题，在后面查询的时候就会反复重试
+
+ ## 缺少的图标 和 设计方面的建议
+ - 显示在 中间的提示框 平时成绩和期末成绩所占比例不是我们可以知道的
+ - score 选择课程呢给种类 缺少一个 惊叹号
+ - 我认为不需要杂选择课程类型的时候增加一个其他类型，这个是在我们分类不清楚的时候才分类到这个类型的
+ - 如果需要给用户一个统一的体验的话 按钮可以不填加边框吗？
+ - [BUG] 我去 RadioButton的 setChecked()竟然有bug！ 可以直接改成checkbox的样式
+ ```
+ style="@android:style/Widget.DeviceDefault.Light.CompoundButton.RadioButton"
+
+ ```
+ - 使用ViewPager的时候最好使用LinearLayout 这样不会重叠
+# 8.16
+
+## Android Studio bug 
+[Bug] kotlin文件中无法获取java package
+- 剩余的问题 按照 设计那边修改图像
+- 课程的alertDialog换成好的 dialog 然后dialog的content有问题
+- 成绩结果页面 toolbar和 学习的位置有问题 title的显示有问题
+- 测试学分绩计算结果 
+- ~~成绩显示平时学分有问题~~
+
+- ~~我将选择学年和选择课程种类的内容过分的暴露出来了 这样逻辑非常复杂~~
+
 # 8.10
 - 修改MultiStatusView 类 RetroStatusView 
 功能 向外暴露 Erroriew EmptyView 接口 并且能修改内部text
