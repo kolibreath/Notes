@@ -1,6 +1,40 @@
+# Remaining bugs 
+ ## 缺少的图标 和 设计方面的建议 和 
+ - 显示在 中间的提示框 平时成绩和期末成绩所占比例不是我们可以知道的
+ - score 选择课程呢给种类 缺少一个 惊叹号
+ - 我认为不需要杂选择课程类型的时候增加一个其他类型，这个是在我们分类不清楚的时候才分类到这个类型的
+ - 如果需要给用户一个统一的体验的话 按钮可以不填加边框吗？
+ -  CurFragment上面所有的全部已修学分不太对
+ - 如果没有加载好fragment中的数据的话应该先显示loadingView
+ - 需要设计给一个没有北京的groupView的图
+ - 计算学分绩选择页面的 框的曲线程度不够
+ - ~~计算学分绩顺序错乱 ~~
+ - ~~计算学分绩结果有问题~~
+ - ~~计算学分绩平时成绩和总成绩没法显示~~
+ - ~~计算学分绩详情view 有NPE~~ 这个是DialogFragment初始化的问题 
+ - ~~计算学分绩title 有...蜜汁缩进~~ 按照stackOverflow的方法在Toolbar中增加列一个View然后textView.setText("")    
+ - ~~如果学年没有到应该主动在选项框拒绝这样的搜索~~ 使用Observable.empty()+ 返回正确的年份减少错误重试，但是返回正确的学期过于麻烦，不这样做 
+ - ~~平时学分和看考试最后的学分有问题返回值是""~~
+ - ~~请求结果有问题 如果请求的是2016 请求的结果是2016-2017学年的成绩~~
+
+ - ~~取消CurCreditFragment的条显示~~
+ - 查询成绩偶尔会有异常出现 在用户重新登录之后
+ - splashActivity 跳过会引发异常
+ - 使用lint 工具lint 代码检查代码规范
+ - 修改跳过变成一个loading
+
+ 如果请求没有的学期会有异常
+ 因为查询某个学期，会自动过滤没有的结果
+
+ [Bug] android listview last item not showing
+ 解决方法：这个是因为在multiStatusView 在指定Recyclerview的时候应该指定match_parent 然后 指定MultiStatusView above底部的按钮就行 多半的情况因为这个和AppCollapsinglayout 连用，我觉得这个问题只是单纯遮挡住了而已   
+
+ # 8.20
+ 把String 的 eazy写完 就去写数据结构的题目
 
 # 8.18
 - 想将loadingDialog的输出作为一个Observable包装以下，然后可以在UI线程很容易的调用
+- expandableListview 是通过设置group indicator 为null 来取下父indicator的显示的
 ## 及一个笔记
 关于这行代码：
 ````
@@ -10,13 +44,9 @@ if(id == R.id.cb_first_term)
 这个是一个复选框 点击之后是先变化ui 还是先处理这个点击的逻辑？
 如果原来是选中状态，点击之后马上变成为选中状态，然后给term[0]赋值false，所以是先变化ui，再处理逻辑
 
-- 不健壮 如果学年没有开始也会计算这样就有问题，在后面查询的时候就会反复重试
+- 不健壮 如果学年没有开始也会计算这样就有问题，在后面查询的时候就会反复重试,要提前先过滤掉
 
- ## 缺少的图标 和 设计方面的建议
- - 显示在 中间的提示框 平时成绩和期末成绩所占比例不是我们可以知道的
- - score 选择课程呢给种类 缺少一个 惊叹号
- - 我认为不需要杂选择课程类型的时候增加一个其他类型，这个是在我们分类不清楚的时候才分类到这个类型的
- - 如果需要给用户一个统一的体验的话 按钮可以不填加边框吗？
+
  - [BUG] 我去 RadioButton的 setChecked()竟然有bug！ 可以直接改成checkbox的样式
  ```
  style="@android:style/Widget.DeviceDefault.Light.CompoundButton.RadioButton"
