@@ -1,7 +1,11 @@
+# Bug 启动Kotlin项目异常
+- 启动项目之后会保java.lang.RuntimeException: Unable to instantiate activity 查询之后的结果是 没有apply plugin kotlin-android 但是增加这个plugin 之后爆出找不到错误,https://blog.csdn.net/yukun314/article/details/78395291
+# 8.22
+- 关于LayoutInflater
+如果attachToRoot is true, it will return the inflated view which is attached to the root view(the root view will be returned)
+
+如果 attachToRoot is false 则返回这个inflated View object
 # Remaining bugs 
--  成绩内容detail异常
-- radio button 多次选择异常
-- hql 有一个 
  ## 缺少的图标 和 设计方面的建议 和 
 
  - 显示在 中间的提示框 平时成绩和期末成绩所占比例不是我们可以知道的

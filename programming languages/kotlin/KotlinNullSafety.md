@@ -23,3 +23,6 @@ val result = value?.fuck() ?: throwIllegalArgumentException()
 
 - !!
 显示的告诉编译器如果调用方是空的抛出异常
+
+//猜想
+- ! 这个变量不能为空 
