@@ -45,15 +45,21 @@ Kotlin 可以通过inline 和 reified关键字将内敛函数的泛型参数作�
      return fromJson(json, T::class.java) 
  } 
 ````
+
 ## 常用的集合类
 - ArrayList
-[reference](https://blog.csdn.net/fighterandknight/article/details/61240861)
+[reference list中的api 解释](https://blog.csdn.net/fighterandknight/article/details/61240861)
 [ArrayList 中的常见问题](https://www.cnblogs.com/woshimrf/p/java-arryalist-remove.html)
+[ArrayList 详细解释](https://blog.csdn.net/zxt0601/article/details/77281231)
+
 ### Substract
  - ArrayList 不是线程安全的，如果在多线程的情形下，建议使用Vector或者CopyOnWriteArrayList
- - 内部通过一个Object 数组存放数据，在无参构造的情况下，数组长度赋值为1，如果是传入一个Collection 对象 先转化为 数组对象
-  这个地方 会不会传入不正确的对象？
+ - 内部通过一个Object 数组存放数据，在无参构造的情况下，数组长度赋值为1
  - 在Remove 方发调用的时候 将最后一个元素设置为空 
+ - ArrayList 其实效率是很低的因为 如果没有提前指定容量的话扩容的时候是非常浪费效率的
+ - 其实在ArrayList内部 使用的是object数组储存泛型， 如果使用了错误的类型报错的话 是在编译期抛出的异常
+
+# ArrayList 是怎样扩容的？
 
  - Arrays.asList().add() unsurpprtedException： 因为返回的AbstractList 中没有实现add 或者 remove 方法
  - foreach ConcurrentModificationException,因为foreach 内部是
