@@ -12,6 +12,7 @@
 - Kotlin 多继承
 - Kotlin 函数
 - 自带的"设计模式"
+- Kotlin 协程
 
 # 空安全
 smart cast
@@ -74,6 +75,22 @@ private val mToolbar: Toolbar by findView(R.id.toolbar)
 ````
 
 by 是一个kotlin重载的关键字，然后会返回一个Lazy<T> 个value，这个Value被 Lazy保证只会被初始化一次
+
+## 委托属性 
+
+````
+private val zipCode: Long by DelegatesExt.preference(this, SettingsActivity.ZIP_CODE,
+            SettingsActivity.DEFAULT_ZIP)
+````
+
+这段代码表示zipCode这个属性被委托给了 DelegateExt.preference 这个函数所返回的类，这个类如果要实现委托的话 不需要实现任何接口，只需要实现 
+````
+operator fun getValue()
+
+operator fun setValue() 
+```
+
+就可以
 
 # Kotlin 类
 ## 类型修饰符
@@ -321,6 +338,9 @@ class ViewModel(val db:Database){
 函数原型 
 
 property表示后面作为set(value) 中的这个value
+
+# Kotlin 携程库
+[refer](https://kymjs.com/code/2017/11/24/01/)
 # Kotln 有趣的地方:
 
 
@@ -335,6 +355,13 @@ property表示后面作为set(value) 中的这个value
 @kotlin.internal.InlineOnly
 public inline fun TODO(reason: String): Nothing = throw NotImplementedError("An operation is not implemented: $reason")
 
-
-
 ````
+
+## 反引号
+在Kotlin 中的关键字和Java 或者是内置的关键字冲突的话可以使用``进行转义：
+比如
+```
+override fun getItemPosition(`object`: Any): Int {
+    return super.getItemPosition(`object`)
+  }
+```

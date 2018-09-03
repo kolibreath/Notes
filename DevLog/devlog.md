@@ -1,3 +1,124 @@
+# 本周任务：
+
+完成SHConnection
+- 图片选择然后上传 
+- 写新的动态然后上传
+- 完成6一个完整的测试
+
+看数据结构
+- ArrayList 源码
+- LinkedList 源码
+- 优先队列
+
+# 9.3
+
+## 从新的角度看消息机制
+https://www.jianshu.com/p/d00b010831f3
+这篇文章比较有意思
+
+## 一个闭包是序列化的吗？
+Java 8 提供cast expression 去序列化
+[reference Stack overflow](https://stackoverflow.com/questions/22807912/how-to-serialize-a-lambda)
+
+相关的问题 ，如果想传递一个函数闭包作为intent里面参数这样写法可以吗？
+[原问题](https://stackoverflow.com/questions/50948324/kotlin-passing-function-as-parameter-via-intent)
+
+如果一个类A 中的一个闭包被B类实例化出来，这样的话A类是不能被GC的，会有内存泄漏的风险
+
+这个是我原本的代码，因为需要从fragment 中getArgument() 取出被序列化的闭包，这个是不行的 所以最好继承Dialog 使用 Builder Pattern 完成
+````
+class CancelOrOkDialog:  CenterDialogFragment(){
+
+  fun newInstance():DialogFragment = CancelOrOkDialog()
+  
+  override fun onCreateDialog(savedInstanceState: Bundle?): Dialog {
+    val view = context!!.createView(R.layout.view_cancel_or_ok_dialog)
+
+    val btnConfirm  = view.findViewById<Button>(R.id.btn_confirm)
+    val btnCancel  = view.findViewById<Button>(R.id.btn_cancel)
+
+    btnConfirm.setOnClickListener{
+
+    }
+
+    btnCancel.setOnClickListener {
+
+    }
+  }
+}
+````
+
+# buildScript 和 allProjects 的区别
+buildScript 是针对于Gradle的配置，然而allProjects 是针对每个module的 配置,一般情况下，可以在每个module中指定dependencies的闭包
+[reference](https://stackoverflow.com/questions/30158971/whats-the-difference-between-buildscript-and-allprojects-in-build-gradle)
+
+#View Pager
+
+View pager 中的view 是通过key-Value的形式储存在ViewPager中的 通过initantItem创建一个Object作为key
+
+# 9.2
+重新写一下选择图片的逻辑：
+使用RecyclerView 如果是第一张图片的话(position == 1) 使用一个默认的图片src。 所以原来的图片bitmap list 虽然是0，但是界面上会显示一个图片的占位，
+如果加入一张图片，bitmap 的 list 会变成2，有一张新加入的图片和一张占位
+
+
+或者是做一个类似于qq一样的多选或者是一起做
+
+最终定稿的逻辑：
+
+最复杂的情形，如果是选择或者拍摄了一张图片，后面再选择一批图片
+选择一张图片之前 mpictures 的大小是1，保存一个占位的大小，横向的宽度是3，选择一个图片之后，整个adapter 被 notify以下，增加一张图片
+
+占位.setListener{
+    改变pictures 
+}
+
+****
+备注： 看一下ArrayList remove元素的坑
+
+
+# Android lint 
+- custom view should override performclick
+https://stackoverflow.com/questions/27462468/custom-view-overrides-ontouchevent-but-not-performclick
+
+this is for the visually impaired persons
+
+
+# 8.28
+发现Dialog无法正常设置LoadingDialog上面的提示问题
+分析和推测
+- 可能是线程的问题？？
+- 设置完成之后就无法改变内容？ 是DialogFragment的bug?
+- 在BaseAppActivity中初始化dialog之后没有走这个逻辑？？
+- 为什么 ScoreDisplayFragment 中可以轻易修改
+- 是不是之前的写法有问题 对比以下官方文档？
+
+
+原因是这样的： 因为Fragment 在 commit 之后会加入到FragmentManager 的一个stack里面，如果这样的话 这个fragment显示的时间是不可以知道的。  
+现在有两种解决方法
+- 可以使用DialogFragment 中封装的showNow() 内部实现是 commitNow() 进行操作
+
+- 第二种方法是在newInstance() 的时候设置一个string，hiding()的时候remoVe,但是这样的时机也不是很清楚
+# 8.26
+使用BottomNavigationBar 和 ViewPager可以实现根据不同的栏目加载Fragment的效果
+## 剩余的任务
+- MainActivity 添加底部导航栏目
+- 扫一扫功能 添加二维码保存的内容
+- 个人中心
+- 通知发送功能
+- 忘记密码功能
+- 注册界面
+ 通知发送界面的逻辑：
+ - 点击不同的分类之后，通过变幻两个按钮以及字体的颜色提醒用户
+ - 如果内容是空的话发表的颜色是灰色 
+ - 若果内容是空的话 说点什么存在
+ - 通过选择相片的按钮 下面弹出内容： 照相或者是从相册中选择
+ - 上传图片
+
+ 图片选择这个地方是一个横向的RecyclerView 然后这个View 中,添加不同的item
+，因为这一次项目不需要后期维护，所以使用最简单的方法，每一个item其实是一个包含了三个ImageView的layout ，通过数量判断是否要添加多个item
+ 如果有时间的话做一下移动相片的内容
+
 # Bug 启动Kotlin项目异常
 - 启动项目之后会保java.lang.RuntimeException: Unable to instantiate activity 查询之后的结果是 没有apply plugin kotlin-android 但是增加这个plugin 之后爆出找不到错误,https://blog.csdn.net/yukun314/article/details/78395291
 # 8.22
@@ -86,6 +207,7 @@ if(id == R.id.cb_first_term)
 
 - [BUG] flatmap 内部的代码运行在那条线程上？
 
+observeOn()修改donwStream 的 工作流
 - 感觉今天对调度器用的不是很好，现在来复盘一下问题
   + 需求需要在loading的时候给出提示，包括现在loading到什么阶段 然后是不是在重试请求这些，重试请求的时候直接丢进去了一个接口，然后修改主县城上面的loadingview。这样会有一个view的问题 ：只能在创建view的线程上做这样的修改，开始的时候是在一整个flatmap里面 做修改，这样的话没有办法切换线程，于是联合了两个flatmap 
 
