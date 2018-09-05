@@ -9,7 +9,8 @@
 - ArrayList 源码
 - LinkedList 源码
 - 优先队列
-
+# 9.4
+leetcode 86 287 -> 142->141
 # 9.3
 
 ## 从新的角度看消息机制
