@@ -1,18 +1,20 @@
-# 本周任务：
 
-完成SHConnection
-- 图片选择然后上传 
-- 写新的动态然后上传
-- 完成6一个完整的测试
-
-看数据结构
-- ArrayList 源码
-- LinkedList 源码
-- 优先队列
+# 9.14
+- 重构注册登录
+ - 进度： 将所有的权限请求存放在navigation 模块
+# 9.9
+如果遇到这样的情况：
+需要使用一个hashmap储存一个key-value 但是 又需要在onBindViewHolder中通过position来拿出存贮在set中的item怎么办..
+使用Kotlin Pair来解决
+# 9.5
+选择图片问题解决
 # 9.4
 leetcode 86 287 -> 142->141
 # 9.3
 
+# 9.7
+ 七牛不允许多个同时上传 我的想法是把这些图片包装为Obsevable，然后在merge 我推测merge判断前面的完成的关键是看有没有发射onComplete（）信号
+ 这个还需要指定progress的handler 这里直接声明为null 在completeHandler中发射onnext和oncomplete信号
 ## 从新的角度看消息机制
 https://www.jianshu.com/p/d00b010831f3
 这篇文章比较有意思
