@@ -30,3 +30,10 @@ Auth 扫一扫 进入班级 /
 个人中心 + 发送新的通知 + 收集曲线评价的图及其相关功能
 xww:
 通讯录 Fragment HomeFragment CommentFragment + 其他所有
+
+
+# 剩余功能
+- NavigationActivity 导航家长和老师用户 家长通过扫一扫的回调之后注册
+- TeacherLogin TeacherSignUp
+- 在回调扫一扫回调之后弹出家长signup
+- 如果用户角色是家长的话 需要有一个扫一扫的入口 可以选择新的班级

@@ -15,6 +15,12 @@ public static <T> int binarySearch(List<? extends Comparable<? super T>> list, T
 }
 ````
 - Queue 接口
+- List接口 List接口简单规定了一下需要实现的具体类需要实现的方法
+
+- Set接口  Set接口和List接口都属于Collection的接口，相互之间是兄弟关系
+
+
+****
 ## 类型擦除
 [java 中的泛型](https://blog.csdn.net/briblue/article/details/76736356)
 - Java 中的假泛型
@@ -61,9 +67,13 @@ Kotlin 可以通过inline 和 reified关键字将内敛函数的泛型参数作�
  } 
 ````
 
+****
+
 ## 常用的集合类
 ### fail-fast 机制
 [fail-fast 机制](https://blog.csdn.net/chenssy/article/details/38151189)
+
+# List 相关内容：
 
 # ArrayList
 [reference list中的api 解释](https://blog.csdn.net/fighterandknight/article/details/61240861)
@@ -101,7 +111,7 @@ Kotlin 可以通过inline 和 reified关键字将内敛函数的泛型参数作�
 
  ## Remove 删除list元素可能遇到的问题：
  [可能遇到的问题](https://blog.csdn.net/Sun_flower77/article/details/78008491)
- ArrayList#remove() 是两个方法：一个是remove(Object o) 另外一个是remove(int index) 第一个是移除这个对象，然后将数组的位置移动，覆盖之前被移除的那个元素的位置，第二个方法是移除下标对应的元素，再移动 但是两种方法都可能造成list.size()返回的数值不更新造成NPE
+ - ArrayList#remove() 是两个方法：一个是remove(Object o) 另外一个是remove(int index) 第一个是移除这个对象，然后将数组的位置移动，覆盖之前被移除的那个元素的位置，第二个-方法是移除下标对应的元素，再移动 但是两种方法都可能造成list.size()返回的数值不更新造成NPE
 
  在remove对象的时候，java通过equals比较两个对象的引用，自定义对象的时候最好重写这个方法
 
@@ -109,7 +119,53 @@ Kotlin 可以通过inline 和 reified关键字将内敛函数的泛型参数作�
 
  - 最好不要使用foreach 去remove 
  java 着那个的foreach是iterator的语法糖，其中的next方法，会抛出异常
+ [ArrayList 删除中的坑](https://blog.csdn.net/Sun_flower77/article/details/78008491)
+ ```
+
+ public void remove3(ArrayList<Integer> list) 
+{
+    Integer in = 1;
+    for (Integer i : list) 
+    {
+        if ( i.equals(in) ) 
+        {
+            list.remove(i);
+        }
+    }
+}
+
+// 反编译之后的代码：
+ Integer integer = Integer.valueOf(1);
+Iterator iterator = arraylist.iterator();
+do
+{
+    if(!iterator.hasNext())
+        break;
+    Integer integer1 = (Integer)iterator.next();
+    if(integer1.equals(integer))
+        arraylist.remove(integer1);
+} while(true);
+ ```
+
+ 这个地方在删除的时候remove的时候是使用了ArrayList#remove() iterator在next的时候会checkModification(), 这个改变是储存在iterator中的expectedModCount和上次ArrayList中的modcount进行比较，在ArrayList 中删除了但是没有改变iterator中的值 这样就会不相等
 正确删除的姿势
+```
+ublic void remove4(ArrayList<Integer> list) 
+{
+    Integer in = 1;
+    Iterator<Integer> it = list.iterator();
+    while (it.hasNext()) 
+    {
+        Integer s = it.next();
+        if (s.equals(in)) 
+        {
+            it.remove();
+        }
+    }
+}
+```
+
+
 
 - ArrayQueue:
 [ArrayQueue](http://blog.jrwang.me/2016/java-collections-deque-arraydeque/)
@@ -195,3 +251,31 @@ parent = left或者right /2
     }
 ````
 其中很多遍历使用的是for循环而不是使用了iterator
+
+# Vector
+ArrayList 不是线程安全的 但是Vector 是线程安全的
+因为其中的add方法增加了synchronized方法
+但是需要注意[vector 仍然会因为线程操作出现问题](https://blog.csdn.net/libo222/article/details/52555317)
+- 增加： 如果遇到容量不足的情况 会根据在走早函数中写的 capacityIncreament 来增加容量的大小 
+```
+private void grow(int minCapacity) {
+    // overflow-conscious code
+    int oldCapacity = elementData.length;
+    int newCapacity = oldCapacity + ((capacityIncrement > 0) ?
+                                     capacityIncrement : oldCapacity);
+    if (newCapacity - minCapacity < 0)
+        newCapacity = minCapacity;
+    if (newCapacity - MAX_ARRAY_SIZE > 0)
+        newCapacity = hugeCapacity(minCapacity);
+    elementData = Arrays.copyOf(elementData, newCapacity);
+}
+```
+
+如果容量的大小非零 就会增加到原来大小的两倍 反之亦然
+
+# Stack
+Stack是继承Vector的 部分函数也是加了同步锁的
+
+# Set接口相关内容
+
+## HashMap

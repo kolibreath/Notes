@@ -1,4 +1,3 @@
-# Kotlin VS Java 
 目录：
 - 空安全
 - 类型推断
@@ -12,6 +11,7 @@
 - Kotlin 多继承
 - Kotlin 函数
 - 自带的"设计模式"
+- 操作符重载
 - Kotlin 协程
 
 # 空安全
@@ -28,6 +28,16 @@ a?.toString()
 ````
 
 强制执行符!! 当确定一个变量一定不是null的时候可以强制执行这个代码
+
+# 初始化 
+在一个类初始化的时候可以通过
+````
+init{
+
+}
+````
+
+显式说明需要在初始化的时候进行的操作，但是在这个类被实例化的时候也可以省去init代码块，就像java 代码中常常给一些field new 以下引用这样
 # 类型推断
 ````
 TextView view = (TextView )findViewById(R.id.xxx);
@@ -298,6 +308,8 @@ public interface OnItemClickListener{
 
 可以直接通过 listener()调用
 ````
+还有定义在primitive.kt中的Int类型的比较运算符
+< 
 
 - 扩展函数
 ````
@@ -365,3 +377,16 @@ override fun getItemPosition(`object`: Any): Int {
     return super.getItemPosition(`object`)
   }
 ```
+
+### 更加容易的三元操作符：
+````
+更加方便和安全的三元预算符
+override fun getItem(p0: Int): Any {
+    var count = if (mList == null ) 1 else mList.size + 1
+    return if(count > MAX_SELECT_PIC_NUM) mList!!.size else count
+  }
+
+````
+
+# 小而精妙的数据结构
+Pair()
