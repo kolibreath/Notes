@@ -1,4 +1,4 @@
-Bro offers you a set of callback methods, the usage of which is similiar with the ones you are familiar with in ``Application``.
+Bro offers you a set of callback methods, the usage of which is similiar with the ones you in ``Application``.
 
 Eg: the ``onCreate()`` method of ``IBroModule`` will be called after the ``onCreate()``of ``Application``
 
@@ -23,7 +23,7 @@ public class DataModule implements IBroModule {
 
 ## Trigger Callback Listeners
 
-- Bro needs to be initialized in Application'``onCreate()`` method, as ``onCreate()`` will be triggered in ``init(...)`` block of Bro.  
+- Bro needs to be initialized in Application's ``onCreate()`` method, as ``onCreate()`` will be triggered in ``init(...)`` block of Bro.  
 
 ## Best Practice
 
@@ -86,19 +86,19 @@ Bro.startActivityFrom(context)
         .withExtras(bundle)
         .toUri(Uri.parse("broapp://home?urlparam=233"));
 
-// 更多 API，以及如何获取跳转结果
-// ActivityRudder rudder = Bro.startPageFrom(this) // 当前 Context
-//        .withExtras(bundle) // 携带参数
-//        .withFlags(flags) // 携带 Flags
-//        .withCategory(category) // 添加 category
-//        .forResult(resultCode) // 用于 onActivityResult 的请求参数  
-//        .justForCheck() // 若调用该 API，则不会触发最终的 startActivity，通常用来配合检查目标页面是否存在（而不想跳转）
+// more APIs and how to get the result of redirection
+// ActivityRudder rudder = Bro.startPageFrom(this) // current Context
+//        .withExtras(bundle) // with Extras
+//        .withFlags(flags) //   with Flags
+//        .withCategory(category) // add category
+//        .forResult(resultCode) // for parameters of onActivityResult  
+//        .justForCheck() //Activity will not start if this api is applied, which usualy is to check the existence of the target page without turning to it
 //        .toUri(Uri.parse("broapp://home?urlparam=233"));   // 目标 Uri
 //
-// rudder.isIntentValidate(); // 目标 Activity 是否被找到了
-// rudder.isIntercepted(); // 跳转过程中是否被拦截了
-// rudder.getIntent(); // 获得跳转所用的 Intent
-// rudder.getBuilder(); // 获得页面跳转的参数构造器
+// rudder.isIntentValidate(); // whether Activity is valid 
+// rudder.isIntercepted(); //    whether it is intercepted
+// rudder.getIntent(); // get the  Intent for start Activity
+// rudder.getBuilder(); //  get the builder for start Activity
 ````
 
 ## Best Practice
