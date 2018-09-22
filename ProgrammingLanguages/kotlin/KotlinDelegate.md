@@ -1,5 +1,30 @@
 # Kotlin 中的委托
 
+by 关键字的使用 实现代理模式：
+````
+interface Base {  
+    fun show()
+}
+
+// 定义类实现 Base 接口, 并实现 show 方法
+open class BaseImpl : Base {  
+    override fun show() {
+        print("BaseImpl::show()")
+    }
+}
+
+// 定义代理类实现 Base 接口, 构造函数参数是一个 Base 对象
+// by 后跟 Base 对象, 不需要再实现 show() 
+class BaseProxy(base: Base) : Base by base
+
+// main 方法 
+fun main(args: Array<String>) {  
+    val base = BaseImpl()
+    BaseProxy(base).show()
+}
+````
+
+直接将使用的对象交给 by 后面的参数 ，在java 中就是调用base的实现类去使用show方法，Kt 使用语法糖包装了一下   
 ## 属性委托：
 ````
    private var zipCode: Long by DelegatesExt.preference(this, ZIP_CODE, DEFAULT_ZIP)
@@ -30,6 +55,9 @@ val lazyValue :String by lazy{
     "hey yo"
 }
 ````
+第一次调用这个属性的get()的时候会执行传递给lazy的lambda表达式并且记录结果，后续调用get()返回初始化之后的结果
+
+[reference](https://www.kotlintc.com/articles/2631)
 
 函数体内只会执行一次 然后类似static final 的 Singleton
 
