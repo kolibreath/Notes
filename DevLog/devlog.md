@@ -1,4 +1,80 @@
+# 10.17
+今天在做hadoop
+遇到的问题：
+- 先使用zsh alias 先将hadoop下载的tar包中的程序命名为 hadoop
+- 可以使用hadoop fs -mkdir 创建一个文件夹 /user
+hdfs://localhost:9000/user/
+可以通过copyToLocal 或者 copyToLocal 和 HDFS 交互
+- 现在使用的版本合并了mapreduce 
+- 测试用的jar包在 /share/common 
+- 使用的时候最好写完整路径 而且tab不能不全hdfs中的路径 有点蛋疼
 
+
+# 10.14
+家校通现在还存在的问题：
+- 发一个feed 之后会500 : 原因：后端弄混了数据库item id 和用户id， 进度：解决中
+- 登录一个已经注册过了的用户 915 915 会500 错误
+
+# 10.13
+埋点
+推广率
+
+
+# 10.11
+
+写一个Kotlin脚本：
+[Kotlin 脚本](https://github.com/JetBrains/kotlin/tree/master/compiler/testData/codegen/script)
+文件协议
+content://
+file://
+两种协议
+contentProvider 和 contentResolver
+(可以看这一篇文章)[https://www.jianshu.com/p/ea8bc4aaf057]
+
+通过contentProvider 地工具类 contentResolver去操作具体的uri对应地数据和资源
+ 两种协议的产生
+
+ 问题：
+ onActivityResult 的 data : data.data 返回的是一个content://协议的对象
+ 但是使用的库中的函数需要一个path 文件的绝对路径
+
+ 临时保存一个文件 然后获取这个文件的绝对路径
+
+# 10.10
+
+[Kotlin 协程](https://www.kymjs.com/code/2017/11/24/01/)
+[AtomicInteger](https://www.cnblogs.com/sharkli/p/5623524.html)
+失败
+[Kotlin 中的并发原语](https://blog.csdn.net/sergeycao/article/details/53894787)
+关于七牛云上传问题 
+七牛云上传sdk 只能一次上传一张图片，很难写上传完成之后地回调：
+- 方法一使用Rxbus通信 写一个counter 计数 全部上传完成然后发一个event
+问题 使用counter的时候会出现并发错误 -> 使用AtomicInteger?
+AtomicInteger 为什么会发生失败：
+使用run方法可以调用{}闭包中方法   
+# 10.7
+Kotlin Backing field 
+https://medium.com/@nomanr/backing-field-in-kotlin-explained-9f903f27946c
+
+``
+class User{
+    var firstName : String  
+        get() = field
+        set(value) {field = value}
+    
+   var lastName : String  
+        get() = field
+        set(value) {field = value}
+ 
+                                     
+}
+
+    var firstName:String 
+        get() = firstName
+        set(value)  { firstName = value} 
+``
+
+backing field 的作用是避免编译器递归调用，而采取的中间量措施
 # 9.27
 其实我发现Kotlin 好多语法是照抄Scala的
 # 9.14
