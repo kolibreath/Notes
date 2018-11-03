@@ -1,3 +1,28 @@
+# 11.3
+解决了访问失败的问题
+hadoop connection refused on port 8020
+这个问题使用了disable ipv6 解决了！
+    
+
+# 11.1
+hadoop 是真得尼玛的折腾
+我重新配置了一次 
+然后现在没有之前的每次使用命令的warning了
+临时数据保存在usr目录下面 所以要对所有的脚本加上权限
+
+# 10.25
+题目分享：
+求两个链表的子集
+https://leetcode.com/problems/evaluate-reverse-polish-notation/description/
+这里两个链表是尾部相同的 ，是有局限的 
+如何对一个链表进行时间复杂度为O(logn)的排序 空间复杂度可以为常量
+可以使用常量
+https://leetcode.com/problems/sort-list/
+
+quiz：
+使用C语言或者Java
+手写一个归并排序 
+手写一个快速排序
 # 10.17
 今天在做hadoop
 遇到的问题：

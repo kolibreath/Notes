@@ -257,3 +257,63 @@ private void backtrack(List<List<Integer>> list , List<Integer> tempList, int []
 ````
 
 
+
+*****
+# 链表：
+链表删除某个节点：
+使用递归解决
+```
+
+```
+iterative:
+```
+public class Solution {
+    public ListNode removeElements(ListNode head, int val) {
+        ListNode fakeHead = new ListNode(-1);
+        fakeHead.next = head;
+        ListNode curr = head, prev = fakeHead;
+        while (curr != null) {
+            if (curr.val == val) {
+                prev.next = curr.next;
+            } else {
+                prev = prev.next;
+            }
+            curr = curr.next;
+        }
+        return fakeHead.next;
+    }
+}
+```
+
+
+翻转链表：
+递归完成
+```
+class Solution {
+        public ListNode reverseList(ListNode head) {
+            
+            if(head == null)
+                return null;
+            ListNode dummy = new ListNode(0);
+            reverse(head,dummy,null);
+
+            return dummy.next;
+        }
+
+        void reverse(ListNode node,ListNode dummy,ListNode cur){
+            if(node.next == null) {
+                dummy.next= node;
+                return;
+            }
+
+            reverse(node.next,dummy,cur);
+            ListNode p = dummy;
+            while(p.next!=null){
+                p = p.next;
+            }
+            cur = p;
+            cur.next = new ListNode(node.val);
+        }
+    }
+
+```

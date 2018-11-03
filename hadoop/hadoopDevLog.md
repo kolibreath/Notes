@@ -1,8 +1,10 @@
 # 使用的资源：
 [introduction to Hadoop](https://classroom.udacity.com/courses/ud617/lessons/308873795/concepts/3092715680923)
 [hadoop shell reference](https://hadoop.apache.org/docs/r1.0.4/cn/hdfs_shell.html#copyFromLocal)
-Hadoop 基础教程 
+~~Hadoop 基础教程~~ 
 感觉书有点老了，坑有点多
+
+后来使用了hadoop权威指南
 
 
 # 使用配置：
@@ -76,3 +78,10 @@ hadoop fs -mkdir
 ```
 hadoop fs -copyFromLocal /home/kolibreath/test.txt /user/hadoop
 ```
+
+
+- 今天遇到了启动hadoop之后没有启动datanode进程的问题，这个问题后来修改在xml文件中添加属性解决
+进行一次mapreduce默认的输出是在out 文件夹下面，使用的名称是：out/part-r-00000 会覆盖之前的输出
+使用hadoop进行一个很大量的文章的字数统计是非常快速的
+
+- 
