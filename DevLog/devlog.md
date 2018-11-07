@@ -1,3 +1,11 @@
+# 准备做一些Java 的简易的爬虫
+目标 首先从一些简单的网站开始，比如github 
+然后将这个爬虫变成一个分布式爬虫
+最后将这个爬虫编程Scala分布式爬虫
+
+请求微博的微博抽奖平台 一定是有一些cookie的
+https://www.weibo.com/u/5581785513?is_all=1
+
 # 11.3
 解决了访问失败的问题
 hadoop connection refused on port 8020
