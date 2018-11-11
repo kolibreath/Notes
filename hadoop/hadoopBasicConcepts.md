@@ -3,6 +3,31 @@
 # map reduce的理解
 map进行任务内容的变化 数据的准备阶段
 reduce 任务分配然后再合并（规约）
+JobTracker TaskTracker
+JobTracker 在MapReduce 中有单点故障的情况 ，只有一个JobTracker，压力大不容易扩展 只能支持MapReduce 作业
+
+- MapReduce计算框架
+MapReduce 实时流式计算
+
+Yarn 不同框架爱可以共享同一个hdfs集群上面的数据，享受整体的资源调度
+
+1) ResourceManager：RM
+管理作业调度 kill start作业
+监控NodeManager 
+2) ApplicationMaster
+通过对应的标准实现各种ApplicationMaster 可以运行不同的框架
+每个应用程序对应一个ApplictionMaster应用程序管理
+和NodeManager的通信 
+3) NodeManager
+多个nodeManager 自己本身节点资源管理和使用，定时汇报使用情况
+4) Client
+客户端 提交作业 kill 作业 等等....
+
+5) Container
+封装CPU Memeory的资源的容器 
+任务运行环境的抽象
+
+hadoop jar 提交作业到yarn上面运行
 
 
 ### 其实还有一个conbiner函数

@@ -21,6 +21,38 @@ launch(CommonPool){
 }
 ````
 
+异步协程
+```
+fun testRunFunction() {
+    runBlocking {
+        // Start a coroutine
+        launch(coroutineContext) {
+            println("In start : ${getThreadName()}")
+            Thread.sleep(200)
+            println("In ended : ${getThreadName()}")
+        }
+
+        run {
+            println("Out start: ${getThreadName()}")
+            Thread.sleep(300)
+            println("Out ended: ${getThreadName()}")
+        }
+    }
+}
+```
+launch 是被挂起的状态 直到run 执行完毕
+
+```
+Out start: main
+Out ended: main
+In start : main
+In ended : main
+```
+
+delay不会中断整个Thread
+From the diagram, we could clearly see that the use of delay() doesn’t block the Thread, but release the Thread for the other coroutine to continue it’s work, and regain it back as the Thread is released.
+
+
 ## 在Android中的异步调用
 ````
 async(UI){

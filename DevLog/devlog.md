@@ -1,3 +1,47 @@
+# 如何使用Kotlin 跳过某些不想要的数值？
+```
+  val queries = query.split(" ")
+
+    //统计查询中的tf
+    var step  = 0
+    queries.sorted()
+            .forEachIndexed { index, s ->
+                if(step  !=0 ) {
+                    step --
+                    return@forEachIndexed
+                }
+                var counter = 0
+                while(queries[step + index] == s){
+                    counter ++
+                    step++
+                }
+                val randomDf = Math.random()*10* 1000L
+                val word = Word(name = s,tf = counter,df = randomDf ,idf =inversedDocumentFrequency(randomDf) )
+                words.add(word)
+    }
+```
+
+对一个已经排序了的string array 进行 计算重复的word的次数
+# 本周使用了 idea + gradle 构建了一个简易的工程项目
+
+- Kotlin break from loop
+```
+ val results = arrayListOf<Pair<Int,Int>>()
+    (1..3).forEach outer@ { x ->
+        (1..3).forEach inner@ { y ->
+            if (x == 2 && y == 2) return@outer // continue @outer
+            if (x == 1 && y == 1) return@inner // continue @inner
+            results.add(Pair(x,y))
+        }
+    }
+```
+跳出 继续一个循环
+
+- break 的话需要使用break 关键字
+
+
+leetcode = 4 题
+
 # 准备做一些Java 的简易的爬虫
 目标 首先从一些简单的网站开始，比如github 
 然后将这个爬虫变成一个分布式爬虫
