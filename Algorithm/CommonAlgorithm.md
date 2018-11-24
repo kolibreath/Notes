@@ -6,6 +6,18 @@
 # 排序算法
 
 ## 快速排序
+
+快速排序kotlin实现：
+
+```
+fun <T : Comparable<T>> List<T>.quickSort(): List<T> = 
+    if(size < 2) this
+    else {
+        val pivot = first()
+        val (smaller, greater) = drop(1).partition { it <= pivot}
+        smaller.quickSort() + pivot + greater.quickSort()
+    }
+```
 快速排序中在寻找轴的时候记得要nums[high] >= pivot 和 nums[low] <= pivot 不然会有重复计算
 ```
 private void qsort(int nums[],int low,int high){
