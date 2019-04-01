@@ -160,9 +160,41 @@ class Solution {
 
 就是记得在交换完成之后在换回来就好了
 
-# 求子集问题
-#  Combination Sum 
-这道题是一个求子集的问题，子集中的元素可以重复，这样的话就不应该作为一个排序问题来处理.
+# 排列问题
+#  Combination Sum 排列求和 
+这道题给出了一个数组,比如 1 2 3 4 5， 然后寻找 对应的结果 比如7对应的结果的数字，需要使用递归+回溯解决。
+如果结果中的数字比如 7 = 2 + 2 + 3允许出现重复的话，并且原来的数组中没有这样的重复，递归的时候，取i=3，如果不允许有重复，
+<br>取i=start继续向下变化
+
+## 代码实现
+实践中使用LinkedList 作为Stack，如果需要计算sum的原始数列是1 2 3 4 0 的话，这些数字将会按照 1-> 2 -> 3 -> 4的顺序进入list<br>
+,加入之前先判断能否满足target的值，如果不行的话就进行下一次迭代，合理剪枝。<br>
+
+实践过程中发现，如果调用LinkedList.pop()弹出最后一个数据有点问题，怀疑是LinkedList内部对list下标和list内部数据没有处理好<br>，
+使用pollLast()可以解决这个问题,文档中描述的是LinkedList.pop() == removeFirst() 有点迷惑
+```
+ private static void combination(int value, int target, int start,
+                                    LinkedList<Integer> container){
+        int nums[] = {1,2,3,4,0};
+        if(value == target){
+            for (int result:container) {
+                System.out.print(result + " ");
+            }
+            System.out.println();
+        }else{
+            //结果中不会有重复
+            for(int i = start;i<nums.length;i++){
+                int temp = value + nums[i];
+                if(temp > target || container.contains(nums[i]))
+                    continue;
+                container.add(nums[i]);
+                combination(value + nums[i], target,start+1,container);
+                container.pollLast();
+            }
+        }
+    }
+
+```
 
 ````
 public List<List<Integer>> subsets(int[] nums) {
@@ -181,7 +213,7 @@ private void backtrack(List<List<Integer>> list , List<Integer> tempList, int []
     
 }
 ````
-
+# 排列求子集
 如果是求子集的话有一个这样的固定的套路
 [reference](https://leetcode.com/problems/combination-sum/discuss/16502/A-general-approach-to-backtracking-questions-in-Java-(Subsets-Permutations-Combination-Sum-Palindrome-Partitioning)
 
