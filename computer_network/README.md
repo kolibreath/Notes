@@ -35,18 +35,19 @@
 - UDP TCP协议
     - 三次握手 四次释放
     - 传输策略
+
 # [第五章](https://github.com/kolibreath/Notes/blob/master/computer_network/计算机网络第五章.md)
 ## 第五章包括的内容
-    - DNS
-    - HTTP 协议
-    - DHCP
-    - SNMP
+- DNS
+- HTTP 协议
+- DHCP
+- SNMP
 #  [第六章](https://github.com/kolibreath/Notes/blob/master/computer_network/计算机网络第六章.md)
 ## 第六章包括的内容
-    # 网络安全
-    - 对称密钥密码体制 和 公钥密码体制的特点
-    - 数字签名和鉴别
-    - 网络层安全协议IPSec 协议族 和 运输层安全协议SSL/TLS
+# 网络安全
+- 对称密钥密码体制 和 公钥密码体制的特点
+- 数字签名和鉴别
+- 网络层安全协议IPSec 协议族 和 运输层安全协议SSL/TLS
 
 
 
